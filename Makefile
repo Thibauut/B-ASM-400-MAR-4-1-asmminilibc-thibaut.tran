@@ -29,4 +29,4 @@ fclean:	clean
 re:	fclean	all
 
 #enlever le gcc -fno-builtin main.c libasm.so -o minilib lors du push
-# export LD_LIBRARY_PATH="." a taper a chaque fois pour lancer le programme
+#export LD_LIBRARY_PATH="." à taper à chaque fois avant de lancer le programme

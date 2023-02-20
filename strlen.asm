@@ -2,9 +2,10 @@ global strlen
 
 strlen:
     xor rax, rax
+
+for:
     cmp byte [rdi], 0
     je return
-for:
     inc rax
     inc rdi
     cmp byte [rdi], 0
