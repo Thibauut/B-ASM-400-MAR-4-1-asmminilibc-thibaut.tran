@@ -10,7 +10,7 @@ memset:
     cmp rcx, 0
     je return
 for:
-    ;si le caractère à écrire est nul, on retourne
+    ;si la zone mémoire à écrire est nul, on retourne
     cmp byte [rdi], 0
     je return
     ;change le caractère à l'adresse rax
