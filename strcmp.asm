@@ -5,45 +5,32 @@ strcmp:
     ;stock l'adresse de la zone mémoire 2
     mov rsi, rsi
 
+    ;initialisation des variables
+    mov r8, 0
+    mov r9, 0
 for:
-    ;si la zone mémoire 1 est nul, on retourne
-    cmp byte [rdi], 0
-    je returnEqual
-    ;si la zone mémoire 2 est nul, on retourne
-    cmp byte [rsi], 0
-    je returnLessThan1
     ;on compare les deux caractères
-    mov al, [rdi]
-    mov bl, [rsi]
-    cmp al, bl
-    ;incrémente le pointeur de la première zone mémoire si les deux caractères sont égaux
+    mov r8b, [rdi]
+    mov r9b, [rsi]
+    cmp r8b, r9b
+    ;si égal on continue
     je next
-    cmp al, bl
-    jl returnNotEqual
+    ;sinon on retourne la différence
+    sub r8b, r9b
+    ; movsx permet de convertir un octet en entier signé
+    movsx eax, r8b
     ret
-
 next:
-    ;incrémente le pointeur de la première zone mémoire
-    inc rsi
+    ;incrémente
     inc rdi
+    inc rsi
+    ;si on a atteint la fin de la chaine
+    cmp r8b, 0
+    je returnEqual
+    ;sinon on continue
     jmp for
 
-returnNotEqual:
-    ;retourne le résultat de la comparaison
-    mov eax, 0
-    ret
-
 returnEqual:
-    ;retourne le résultat de la comparaison
+    ;si égal retourne 0
     mov eax, 0
-    ret
-
-returnLessThan1:
-    ;retourne le résultat de la comparaison
-    mov eax, 1
-    ret
-
-returnLessThan2:
-    ;retourne le résultat de la comparaison
-    mov eax, -1
     ret
