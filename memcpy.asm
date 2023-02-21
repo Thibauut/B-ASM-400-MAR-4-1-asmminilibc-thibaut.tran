@@ -5,27 +5,21 @@ memcpy:
     ;stock l'adresse de la zone mémoire à copier
     mov rsi, rsi
     ;stocke le nombre caractère à écrire
-    mov rcx, rdx
+    mov rcx, 0
     ;si le nombre de caractères à écrire est nul, on retourne
-    cmp rcx, 0
-    je return
+    mov r12, 0
 for:
-    ;si la zone mémoire à écrire est nul, on retourne
-    cmp byte [rdi], 0
-    je return
     ;on copie le caractère
-    mov al, [rsi]
-    ;on l'écrit dans la zone mémoire, destination
-    mov [rdi], al
-    ;on incrémente les adresses
-    inc rsi
-    inc rdi
-    ;décrémente le nombre de caractères à écrire
-    dec rcx
-    ;si le nombre de caractères à écrire est nul, on retourne
-    cmp rcx, 0
+    cmp rcx, rdx
     je return
+    ;on l'écrit dans la zone mémoire, destination
+    mov r12b, byte rsi[rcx]
+    mov byte rdi[rcx], r12b
+    ;décrémente le nombre de caractères à écrire
+    inc rcx
+    ;si le nombre de caractères à écrire est nul, on retourne
     ;sinon on boucle
     jmp for
 return:
+    mov rax, rdi
     ret

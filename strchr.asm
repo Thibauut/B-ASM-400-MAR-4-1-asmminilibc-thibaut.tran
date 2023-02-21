@@ -1,16 +1,15 @@
 global strchr
 strchr:
-    ;initialisation de rax à 0
-    xor rax, rax
+    ; stocker le deuxieme argument
+    mov rax, rsi
 for:
     ;comparaison de l'octet courant avec le caractère recherché
-    cmp byte [rdi], dl
+    cmp byte [rdi], al
     je found
     ;verification de la fin de la chaine
     cmp byte [rdi], 0
     je return
     ;incrémentation a à l'octet suivant
-    inc rax
     inc rdi
     jmp for
 found:

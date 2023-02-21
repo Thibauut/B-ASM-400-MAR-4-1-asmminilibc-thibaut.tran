@@ -1,14 +1,14 @@
 global strrchr
 strrchr:
     ;initialisation de rax à 0
-    xor rax, rax
+    mov rax, rdx
     ;sauvegarde de la premiere adresse de la chaine
     mov rbx, rdi
     ;initialisation de rcx au pointeur de la chaine
     mov rcx, rdi
 for:
     ;comparaison de l'octet courant avec le caractère recherché
-    cmp byte [rdi], dl
+    cmp byte [rdi], al
     jne getLast
     ;verification de la fin de la chaine
     cmp byte [rdi], 0
@@ -17,7 +17,6 @@ for:
     mov rcx, rdi
     ;incrémentation a à l'octet suivant
     inc rdi
-    inc rax
     ;incrémentation de la boucle
     jmp for
 getLast:

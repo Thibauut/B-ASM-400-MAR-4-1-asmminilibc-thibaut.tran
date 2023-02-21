@@ -7,7 +7,6 @@ for:
     cmp byte [rdi], 0
     je return
     ;incrémentation a à l'octet suivant
-    inc rax
     inc rdi
     ;incrémentation de la boucle si le caractère est différent de 0
     cmp byte [rdi], 0

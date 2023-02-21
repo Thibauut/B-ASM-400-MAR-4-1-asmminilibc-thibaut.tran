@@ -26,4 +26,5 @@ for:
     ;sinon on boucle
     jmp for
 return:
+    mov rax, rdi
     ret

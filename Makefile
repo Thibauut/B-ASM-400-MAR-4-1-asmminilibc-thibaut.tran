@@ -19,10 +19,10 @@ NAME	=	libasm.so
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	@ld	-shared	-nostdlib	-fPIC	-o	$(NAME)	$(OBJ)
+	ld	-shared	-nostdlib	-fPIC	-o	$(NAME)	$(OBJ)
 
 %.o:	%.asm
-	@nasm	-f	elf64	$<	-o	$@
+	nasm	-f	elf64	$<	-o	$@
 
 clean:
 	@rm	-f	$(OBJ)
