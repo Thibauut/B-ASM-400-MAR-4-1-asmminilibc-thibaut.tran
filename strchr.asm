@@ -3,12 +3,12 @@ strchr:
     ;initialisation de rax à 0
     xor rax, rax
 for:
-    ;verification de la fin de la chaine
-    cmp byte [rdi], 0
-    je return
     ;comparaison de l'octet courant avec le caractère recherché
     cmp byte [rdi], dl
     je found
+    ;verification de la fin de la chaine
+    cmp byte [rdi], 0
+    je return
     ;incrémentation a à l'octet suivant
     inc rax
     inc rdi

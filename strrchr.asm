@@ -7,12 +7,12 @@ strrchr:
     ;initialisation de rcx au pointeur de la chaine
     mov rcx, rdi
 for:
-    ;verification de la fin de la chaine
-    cmp byte [rdi], 0
-    je isNull
     ;comparaison de l'octet courant avec le caractère recherché
     cmp byte [rdi], dl
     jne getLast
+    ;verification de la fin de la chaine
+    cmp byte [rdi], 0
+    je isNull
     ;si le caractère est trouvé, on stock l'adresse de cette occurrence
     mov rcx, rdi
     ;incrémentation a à l'octet suivant
@@ -26,7 +26,10 @@ getLast:
     ;incrémentation de la boucle si le caractère est différent de 0
     cmp byte [rdi], 0
     jne for
+
 isNull:
+    cmp dl, 0
+    je return
     ;si le caractère n'a pas été trouvé, on retourne NULL
     cmp rcx, rbx
     je returnNull
@@ -36,4 +39,8 @@ isNull:
 
 returnNull:
     xor rax, rax
+    ret
+
+return:
+    mov rax, rdi
     ret
