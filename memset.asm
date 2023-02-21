@@ -1,13 +1,12 @@
 global memset
 memset:
-    ;stocke le nombre de caractères à écrire changer
-    mov rcx, rdx
-    ;stocke l'adresse de la zone mémoire à écrire
+    ;stocke le 1er argument
     mov rax, rdi
-    ;stocke le nombre caractère à écrire
-    mov dl, sil
+    ;stocke le 2e argument
+    mov r12, rsi
+    ;stocke le 3e argument
+    mov rcx, rdx
     ;si le nombre de caractères à écrire est nul, on retourne
-
     cmp rcx, 0
     je return
 for:
@@ -15,7 +14,7 @@ for:
     cmp byte [rdi], 0
     je return
     ;change le caractère à l'adresse rax
-    mov byte [rax], dl
+    mov byte [rax], r12b
     ;incrémente l'adresse de la zone mémoire à écrire
     inc rax
     ;décrémente le nombre de caractères à écrire
