@@ -11,6 +11,7 @@ SRC	=	strlen.asm	\
 		memset.asm	\
 		memcpy.asm	\
 		strcmp.asm	\
+		memmove.asm	\
 		strncmp.asm
 
 OBJ	=	$(SRC:.asm=.o)
