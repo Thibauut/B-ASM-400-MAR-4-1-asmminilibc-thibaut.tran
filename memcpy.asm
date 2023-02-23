@@ -4,9 +4,8 @@ memcpy:
     mov rdi, rdi
     ;stock l'adresse de la zone mémoire à copier
     mov rsi, rsi
-    ;stocke le nombre caractère à écrire
+    ;initialise le nombre de caractères à écrire
     mov rcx, 0
-    ;si le nombre de caractères à écrire est nul, on retourne
     mov r12, 0
 for:
     ;on copie le caractère

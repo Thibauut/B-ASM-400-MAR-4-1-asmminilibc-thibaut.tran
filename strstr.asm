@@ -1,5 +1,5 @@
 strstr:
-    mov rax, rdi ; sauvegarde de rdi dans rax
+    mov rax, 0 ; sauvegarde de rdi dans rax
 
 for:
     ; stock le premier caractère de la chaine rsi dans r8b
