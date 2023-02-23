@@ -1,17 +1,17 @@
 global strcmp
 strcmp:
     ;stocke l'argument 1
-    mov rdi, rdi
+    mov rax, rdi
     ;stock l'argument 2
-    mov rsi, rsi
+    mov rcx, rsi
 
     ;initialisation des variables
     mov r8, 0
     mov r9, 0
 for:
     ;on compare les deux caractères
-    mov r8b, [rdi]
-    mov r9b, [rsi]
+    mov r8b, [rax]
+    mov r9b, [rcx]
     cmp r8b, r9b
     ;si égal on continue
     je next
@@ -22,8 +22,8 @@ for:
     ret
 next:
     ;incrémente
-    inc rdi
-    inc rsi
+    inc rax
+    inc rcx
     ;si on a atteint la fin de la chaine
     cmp r8b, 0
     je returnEqual
