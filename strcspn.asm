@@ -1,3 +1,4 @@
+global strcspn
 strcspn:
     mov r8, rdi ; sauvegarde de rdi
     mov r9, rsi ; sauvegarde de rsi
