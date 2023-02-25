@@ -1,36 +1,38 @@
 strstr:
-    mov rax, 0 ; sauvegarde de rdi dans rax
-
-for:
-    ; stock le premier caractère de la chaine rsi dans r8b
-    mov r8b, byte [rsi]
-    ; si le caractère est nul, on a trouvé la sous-chaine
-    cmp byte [rdi], r8b
-    ; si il sont égaux, on continue la recherche
-    je next
-    ; si on a atteint la fin de la chaine, on retourne NULL
-    cmp byte [rdi], 0
+    mov rax, 0
+    mov r8, 0 ; compteur longueur de rsi
+    mov r9, 0 ; compteur de comparaison de rsi et rdi
+checkSize: ; récupere la longueur de rsi
+    cmp byte [rsi + r8], 0
+    je checkSubStr
+    inc r8
+    jmp checkSize
+checkSubStr:
+    mov r12b, [rdi] ; r12b = caractère de rdi
+    mov r13b, [rsi] ; r13b = caractère de rsi
+    cmp r12b, 0 ; vérifie si la chaîne rdi est vide
+    je returnNull
+    cmp r12b, r13b ; vérifie si un caractère de rsi est égal a un caractère de rdi
+    je foundSubStr ; si oui, on passe à la fonction foundSubStr pour vérifier si la chaîne est présente
+    inc rdi
+    jmp checkSubStr
+foundSubStr:
+    cmp r9, r8 ; si le compteur de rsi est égal à la longueur de rsi, on a trouvé la chaîne
     je return
-    ; sinon, on retourne au début de la boucle
-    inc rdi
-    jmp for
-
-found:
-    ; si la sous-chaine est trouvée, on retourne le pointeur
-    mov rax, rdi
-    ret
-
+    mov r12b, [rdi + r9] ; r12b = caractère suivant de rdi a partir du caractère trouvé
+    mov r13b, [rsi + r9] ; r13b = caractère suivant de rsi a partir du caractère trouvé
+    cmp r12b, r13b ; vérifie si le caractère suivant de rsi est égal au caractère suivant de rdi
+    jne next ; si non, on passe au caractère suivant de rdi
+    inc r9
+    jmp foundSubStr
 next:
-    ; incrémente les pointeurs
-    inc rdi
-    inc rsi
-    ; si on a atteint la fin de la sous-chaine, on a trouvé
-    cmp byte [rsi], 0
-    je found
-    ; sinon, on boucle
-    jmp for
-
+    inc r9
+    jmp foundSubStr
 return:
-    ; si la sous-chaine n'est pas trouvée, on retourne NULL
-    xor rax, rax
+    xor rax, rdi
+    ret
+returnNull:
+    cmp byte [rsi], 0 ; vérifie si la chaîne rsi est vide
+    je return ; si oui, retourne rdi
+    xor rax, rax ; sinon, retourne null
     ret
