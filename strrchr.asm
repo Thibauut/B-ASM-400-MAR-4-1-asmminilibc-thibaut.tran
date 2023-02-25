@@ -10,7 +10,7 @@ getLastOcc:
     dec rdi
     cmp byte [rdi], sil ; si le caractère est le même que sil, on appelle la fonction found
     je found
-    cmp byte [rdi], 0
+    cmp rdi, 0
     je return
     jmp getLastOcc
 
