@@ -1,30 +1,42 @@
 global strcspn
 strcspn:
-    mov r8, rdi ; sauvegarde de rdi
-    mov r9, rsi ; sauvegarde de rsi
-    ; initialisation du compteur
-    xor rax, rax
-    xor rcx, rcx
+    ; initialisation
+    mov r8, 0 ; taille de la chaine rsi
+    mov r9, 0 ; taille de la chaine rdi
+    mov r10, 0 ; caractère courant de la chaine rdi
+    mov r11, 0 ; compteur du caractère trouvé
+    mov r12, 0 ; compteur de la chaine rdi
+    mov rcx, 0 ; compteur de la chaine rsi
+getSize1: ; on récupère la taille de la chaine rdi
+    cmp byte [rdi + r9], 0
+    je getSize2
+    inc r9
+    jmp getSize1
+getSize2: ; on récupère la taille de la chaine rsi
+    cmp byte [rsi + r8], 0
+    je for
+    inc r8
+    jmp getSize2
 for:
-    mov r8b, [rdi] ; stocke le pointeur vers le premier caractère de rdi dans r8
-    cmp r8b, 0 ; si le caractère est 0, on sort de la boucle car on a atteint la fin de la chaîne
-    je endFor ; on sort de la boucle
-    mov rsi, r9 ; on remet rsi à sa valeur initiale
-    xor rcx, rcx
-for2:
-    mov r9b, [rsi] ; stocke le pointeur vers le premier caractère de rsi dans r9
-    cmp r9b, 0 ; si le caractère est 0, on sort de la boucle
-    je endFor2 ; on sort de la boucle
-    cmp r8b, r9b ; on compare les deux caractères
-    je found ; si ils sont égaux, on a trouvé le caractère
-    inc rsi ; on incrémente rsi
-    jmp for2 ; on recommence la boucle
+    mov rcx, 0 ; on réinitialise le compteur de la chaine rsi
+    mov r10b, [rdi + r12] ; stocke le caractère courant de la chaine rdi
+    cmp r10b, 0 ; fin de la chaine
+    je returnEmpty ; retourne la taille de la chaine rdi
+    jmp found ; sinon, on cherche le caractère
 found:
-    mov rax, rcx
+    cmp rcx, r8 ; fin de la chaine rsi
+    je next ; on passe au caractère suivant de la chaine rdi
+    cmp r10b, [rsi + rcx] ; on stocke le caractère courant de la chaine rsi
+    je return ; on retourne le compteur du caractère trouvé
+    inc rcx ; on incrémente le compteur de la chaine rsi
+    jmp found
+next:
+    inc r11 ; on incrémente le compteur du caractère trouvé
+    inc r12 ; on incrémente le compteur de la chaine rdi
+    jmp for
+return:
+    mov rax, r11
     ret
-endFor2:
-    inc rdi ; on incrémente rdi
-    jmp for ; on recommence la boucle for pour le prochain caractère de rdi
-endFor:
-    mov rax, rcx
+returnEmpty:
+    mov rax, r9
     ret
