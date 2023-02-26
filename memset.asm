@@ -5,7 +5,7 @@ for:
     ;si rdx est égal à rdx on sort de la boucle
     cmp rcx, rdx
     je return
-    ;change le caractère à l'adresse rax
+    ;change le caractère avec le caractère entré stocké dans sil (rsi)
     mov byte [rdi + rcx], sil
     ;incrémente le nombre de caractères à écrire
     inc rcx
