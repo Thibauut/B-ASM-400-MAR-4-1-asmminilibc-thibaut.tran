@@ -7,7 +7,7 @@ for:
     je return
     ;change le caractère à l'adresse rax
     mov byte [rdi + rcx], sil
-    ;décrémente le nombre de caractères à écrire
+    ;incrémente le nombre de caractères à écrire
     inc rcx
     ;sinon on boucle
     jmp for
